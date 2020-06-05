@@ -11,19 +11,17 @@ import com.elenice.cursomc.domain.Categoria;
 import com.elenice.cursomc.services.CategoriaService;
 
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value = "/categorias")
 public class CategoriaResource {
-	
+
 	@Autowired
 	private CategoriaService service;
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
-		
-		Categoria obj = service.find(id);
-		
-		return ResponseEntity.ok().body(obj);
-		
-	}
 
+		Categoria obj = service.find(id);
+		return ResponseEntity.ok().body(obj);
+
+	}
 }
