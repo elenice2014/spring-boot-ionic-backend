@@ -3,9 +3,9 @@ package com.elenice.cursomc.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.elenice.cursomc.domain.Categoria;
+import com.elenice.cursomc.domain.Cidade;
 
 @Repository
-public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
+public interface CidadeRepository extends JpaRepository<Cidade, Integer> {
 
 }
