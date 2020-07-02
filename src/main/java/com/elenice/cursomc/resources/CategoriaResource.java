@@ -22,7 +22,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Categoria> find(@PathVariable Integer id) {
 
 		Categoria obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
@@ -30,12 +30,20 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	  
 	public ResponseEntity<Void> insert(@RequestBody Categoria obj) {   //@RequestBody faz o json ser convertido para o objeto Java automaticamente
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(obj.getId()).toUri(); //pega a url do Postam para inserir
+				.path("/{id}").buildAndExpand(obj.getId()).toUri(); //pegar a url do Postam para inserir
 		return ResponseEntity.created(uri).build();
 
 	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@RequestBody Categoria obj, @PathVariable Integer id){
+		obj.setId(id);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+		
+	}
+	
 }
