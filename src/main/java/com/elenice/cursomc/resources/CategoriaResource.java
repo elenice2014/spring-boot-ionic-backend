@@ -1,6 +1,8 @@
 package com.elenice.cursomc.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.elenice.cursomc.domain.Categoria;
+import com.elenice.cursomc.dto.CategoriaDTO;
 import com.elenice.cursomc.services.CategoriaService;
 
 @RestController
@@ -50,6 +53,16 @@ public class CategoriaResource {
 	public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
 		service.deleteById(id);		
 		return ResponseEntity.noContent().build();  //quando deletar, devolve o código que foi deletado, porem sem conteúdo
+
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity <List<CategoriaDTO>> findAll() {
+
+		List<Categoria> list = service.findAll();
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());  //converter uma lista para outra lista
+		
+		return ResponseEntity.ok().body(listDTO);
 
 	}
 	
