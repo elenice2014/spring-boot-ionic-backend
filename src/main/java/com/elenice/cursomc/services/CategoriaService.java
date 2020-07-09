@@ -2,14 +2,12 @@ package com.elenice.cursomc.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
 import com.elenice.cursomc.domain.Categoria;
 import com.elenice.cursomc.dto.CategoriaDTO;
 import com.elenice.cursomc.repositories.CategoriaRepository;
@@ -35,10 +33,10 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId()); // instancia um cliente partir do bd
+		updateData(newObj, obj); //atualizar os dados do novo objeto criado com base no objeto cm argumento
+		return repo.save(newObj);
 	}
-
 	public void deleteById(Integer id) {
 		find(id);
 		try {
@@ -62,6 +60,11 @@ public class CategoriaService {
 	
 	public Categoria fromDTO(CategoriaDTO objDTO) {
 		return new Categoria(objDTO.getId(), objDTO.getNome());
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+		
 	}
 	
 }
