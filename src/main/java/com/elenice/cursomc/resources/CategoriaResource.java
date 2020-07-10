@@ -21,14 +21,6 @@ import com.elenice.cursomc.domain.Categoria;
 import com.elenice.cursomc.dto.CategoriaDTO;
 import com.elenice.cursomc.services.CategoriaService;
 
-/**
- * @author elenice.c.francisco
- *
- */
-/**
- * @author elenice.c.francisco
- *
- */
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriaResource {
