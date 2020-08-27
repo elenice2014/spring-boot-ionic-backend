@@ -74,7 +74,7 @@ public class CategoriaResource {
 	
 	
 	/**
-	 * Método para responsável pela paginação com parametros opcionais na requisição.
+	 * Método para responsável pela busca paginada com parametros opcionais na requisição.
 	 * 
 	 */
 	@RequestMapping(value="/page", method=RequestMethod.GET)
