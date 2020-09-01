@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.elenice.cursomc.services.DBService;
+import com.elenice.cursomc.services.EmailService;
+import com.elenice.cursomc.services.MockEmailService;
 import com.sun.el.parser.ParseException;
 
 @Configuration
@@ -19,6 +21,11 @@ public class TestConfig {
 	public boolean instantiateDatabase() throws ParseException, java.text.ParseException {
 		dbService.instantiateTestDatabase();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 
 }
