@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.elenice.cursomc.security.JWTAuthenticationFilter;
+import com.elenice.cursomc.security.JWTAuthorizationFilter;
 import com.elenice.cursomc.security.JWTUtil;
 
 @Configuration
@@ -57,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS); // assegurar que o backEnd n guadra sessao do usuario
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+
 	}
 	
 	@Override
