@@ -33,6 +33,9 @@ public class Cliente implements Serializable {
 	
 	private String cpfOuCnpj;
 	private Integer tipo;
+	
+	@JsonIgnore  //pra n aparecer o decript da senha
+	private String senha;
 
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL) //Se for apagar um cliente, apaga automaticamente sues endereços tbm
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -49,13 +52,14 @@ public class Cliente implements Serializable {
 
 	}
 
-	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.tipo = (tipo == null) ? null: tipo.getCod(); //operador ternario se o tipo for igual a null atribui nulo ao campo 
+		this.senha = senha;
 	}
 
 	public Integer getId() {
@@ -80,6 +84,14 @@ public class Cliente implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getCpfOuCnpj() {
