@@ -20,6 +20,7 @@ import com.elenice.cursomc.domain.PagamentoComCartao;
 import com.elenice.cursomc.domain.Pedido;
 import com.elenice.cursomc.domain.Produto;
 import com.elenice.cursomc.domain.enums.EstadoPagamento;
+import com.elenice.cursomc.domain.enums.Perfil;
 import com.elenice.cursomc.domain.enums.TipoCliente;
 import com.elenice.cursomc.repositories.CategoriaRepository;
 import com.elenice.cursomc.repositories.CidadeRepository;
@@ -117,14 +118,20 @@ public class DBService {
 		Cliente cli1 = new Cliente(null,"Elenice", "elenicemiranda47@gmail.com", "36378912377", TipoCliente.PESSOA_FISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("119516-72888", "112345-7890"));
 
+		Cliente cli2 = new Cliente(null,"Gilson", "gilsosfn@gmail.com", "54085729004", TipoCliente.PESSOA_FISICA, pe.encode("123"));
+		cli1.getTelefones().addAll(Arrays.asList("1195537-3367", "1195387-2211"));
+		cli2.addPerfil(Perfil.ADMIN);
+
 		Endereco e1 = new Endereco(null, "Rua Flores", "2", "Apto 303", "Jardim", "34886600", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "45677889", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida Floraino", "202", "Ap 56", "Sao Pedor", "5467890", cli2, c2);
 
 		// cliente conhecendo seus 2 enderecos
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 
 		// mascara de formatação pra instanciar uma data
 		SimpleDateFormat sfd = new SimpleDateFormat("dd/MM/yyyy HH:mm");
