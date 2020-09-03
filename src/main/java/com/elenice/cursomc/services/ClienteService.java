@@ -16,11 +16,14 @@ import org.springframework.stereotype.Service;
 import com.elenice.cursomc.domain.Cidade;
 import com.elenice.cursomc.domain.Cliente;
 import com.elenice.cursomc.domain.Endereco;
+import com.elenice.cursomc.domain.enums.Perfil;
 import com.elenice.cursomc.domain.enums.TipoCliente;
 import com.elenice.cursomc.dto.ClienteDTO;
 import com.elenice.cursomc.dto.ClienteNewDTO;
 import com.elenice.cursomc.repositories.ClienteRepository;
 import com.elenice.cursomc.repositories.EnderecoRepository;
+import com.elenice.cursomc.security.UserSS;
+import com.elenice.cursomc.services.exceptions.AuthorizationException;
 import com.elenice.cursomc.services.exceptions.ObjectNotFoundException;
 
 //classe que faz a consulta no repositório
@@ -39,6 +42,12 @@ public class ClienteService {
 	
 	// Busca produto por id, se não existir, lança uma exception
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {  
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		 Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 		 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
